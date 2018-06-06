@@ -668,6 +668,6 @@ int main() {
 		std::cerr << e.what() << std::endl;
 		return EXIT_FAILURE;
 	}
-
+	std::cout << "my first vulkan triangle" << std::endl;
 	return EXIT_SUCCESS;
 }
