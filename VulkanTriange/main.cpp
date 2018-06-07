@@ -18,6 +18,7 @@
 #include <map>
 #include <set>
 #include <algorithm>
+#include <fstream>
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
@@ -68,6 +69,21 @@ static void DestroyDebugReportCallbackEXT(VkInstance instance,
 	if (func != nullptr) {
 		return func(instance, callback, pAllocator);
 	}
+}
+
+static std::vector<char> readFile(const std::string& filename) {
+	std::ifstream file(filename, std::ios::ate | std::ios::binary);
+
+	if (!file.is_open()) {
+		std::runtime_error("fail to open file!");
+	}
+	size_t filesize = (size_t)file.tellg();
+	std::vector<char> buffer(filesize);
+	file.seekg(0);
+	file.read(buffer.data(), filesize);
+	file.close();
+
+	return buffer;
 }
 
 class Triangle {
@@ -146,6 +162,9 @@ private:
 	VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 	void createSwapChain();
 	void createImageViews();
+
+	/*----------graphics pipeline-----------------*/
+	void createGraphicsPipeline();
 	/*-------mainloop-------------*/
 	void mainloop() {
 		while (!glfwWindowShouldClose(window)) {
@@ -187,6 +206,7 @@ void Triangle::initVulkan() {
 	createLogicalDevice();
 	createSwapChain();
 	createImageViews();
+	createGraphicsPipeline();
 }
 
 void Triangle::createInstance() {
@@ -339,6 +359,7 @@ void Triangle::pickPhysicalDevice() {
 		candidates.insert(std::make_pair(score, device));
 
 	}
+
 
 	if (candidates.rbegin()->first > 0) {
 #ifndef Ndebug
@@ -617,7 +638,7 @@ void Triangle::createSwapChain() {
 
 void Triangle::createImageViews() {
 	swapChainImageViews.resize(swapChainImages.size());
-	for (int i = 0; i < swapChainImages.size(); i++) {
+	for (uint32_t i = 0; i < swapChainImages.size(); i++) {
 		VkImageViewCreateInfo createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		createInfo.image = swapChainImages[i];
@@ -639,6 +660,11 @@ void Triangle::createImageViews() {
 		}
 	}
 
+}
+
+void Triangle::createGraphicsPipeline() {
+	auto vertShaderCode = readFile("shaders/vert.spv");
+	auto fragShaderCode = readFile("shaders/frag.spv");
 }
 
 void Triangle::cleanup() {
