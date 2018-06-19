@@ -1,3 +1,4 @@
+#if 0
 #define GLFW_INCLUDE_VULKAN
 //#define GLFW_EXPOSE_NATIVE_X11
 //#define GLFW_EXPOSE_NATIVE_GLX
@@ -684,7 +685,7 @@ void Triangle::cleanup() {
 	glfwTerminate();
 }
 
-
+#if 0
 int main() {
 	Triangle app;
 	try {
@@ -697,3 +698,5 @@ int main() {
 	std::cout << "my first vulkan triangle" << std::endl;
 	return EXIT_SUCCESS;
 }
+#endif
+#endif
