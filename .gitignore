@@ -17,11 +17,6 @@ VulkanTriange/Debug/VulkanTriange.tlog/link.command.1.tlog
 VulkanTriange/Debug/VulkanTriange.tlog/link.read.1.tlog
 VulkanTriange/Debug/VulkanTriange.tlog/link.write.1.tlog
 VulkanTriange/Debug/VulkanTriange.tlog/VulkanTriange.lastbuildstate
-VulkanTriange/shaders/compile.bat
-VulkanTriange/shaders/frag.spv
-VulkanTriange/shaders/shader.frag
-VulkanTriange/shaders/shader.vert
-VulkanTriange/shaders/vert.spv
 VulkanTriange/VulkanTriange.vcxproj
 VulkanTriange/VulkanTriange.vcxproj.filters
 .gitattributes
